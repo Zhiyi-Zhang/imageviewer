@@ -78,9 +78,15 @@
                                         </menuItem>
                                         <menuItem title="Zoom In" enabled="NO" keyEquivalent="]" id="AVF-Du-6J3">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="zoomIn:" target="Ady-hI-5gd" id="FKP-Ut-BeR"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Zoom Out" enabled="NO" keyEquivalent="[" id="TKF-bu-Rif">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="zoomOut:" target="Ady-hI-5gd" id="xxM-ZD-8KW"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4Oe-2a-Z34"/>
                                         <menuItem title="Copy Image" enabled="NO" keyEquivalent="c" id="czs-eo-B9n">

@@ -79,7 +79,9 @@ struct ContentView: View, DropDelegate {
                          currentAmount = 0
                          offsetY += 0.1 //this seems to fix it
                      }
-            )
+              )
+              
+              
             }
         
             if self.showInfoBar == true && url_string != "" {
