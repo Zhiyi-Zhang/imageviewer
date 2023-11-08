@@ -141,6 +141,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ToggleInfoBar()
     }
     
+  @IBAction func zoomInPic(_sender: NSMenuItem) {
+    send_NC(text: "Zoom in")
+    current_image_width += 100
+    current_image_height += 100
+  }
+  
+  @IBAction func zoomOutPic(_sender: NSMenuItem) {
+    send_NC(text: "Zoom out")
+    current_image_width -= 100
+    current_image_height -= 100
+  }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         loadUserDefaults()
@@ -195,7 +206,6 @@ func spawn_window() {
     window.makeKeyAndOrderFront(true)
         
     window_spawned = true
-    
 }
 
 func set_new_url(in_url: String) { // This is the main thing. It gets called whenever we change picture.
@@ -250,6 +260,8 @@ func set_new_url(in_url: String) { // This is the main thing. It gets called whe
     // Enable menu items since we now should have a image loaded
     subMenu?.item(withTitle: "Next")?.isEnabled = true
     subMenu?.item(withTitle: "Previous")?.isEnabled = true
+    subMenu?.item(withTitle: "Zoom In")?.isEnabled = true
+    subMenu?.item(withTitle: "Zoom Out")?.isEnabled = true
     subMenu?.item(withTitle: "Copy Image")?.isEnabled = true
     subMenu?.item(withTitle: "Copy Path to Image")?.isEnabled = true
     subMenu?.item(withTitle: "Delete")?.isEnabled = true // TODO enable this only if file exists

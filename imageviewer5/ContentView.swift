@@ -6,7 +6,6 @@ import Foundation
 //var screen_width = NSScreen.main?.frame.width // Current display max width
 //var screen_height = NSScreen.main?.frame.height // and height
 
-
 struct ContentView: View, DropDelegate {
     
     // TODO should also implement validateDrop function to validate file extension
@@ -42,6 +41,12 @@ struct ContentView: View, DropDelegate {
     @State var InfoBar_Text_FileSize = InfoBar_FileSize
     @State var InfoBar_Text_Misc = InfoBar_Misc
     //@State var bgcolor = Color(.systemBlue)
+  @State var finalAmount  = CGFloat(1)
+  @State var currentAmount  = CGFloat(0)
+  @State var offsetX = CGFloat(0)
+  @State var offsetY = CGFloat(0)
+  @State var offsetXBuffer = CGFloat(10)
+  @State var offsetYBuffer = CGFloat(10)
     
     
     let pub = NotificationCenter.default.publisher(for: NSNotification.Name(NCName))
@@ -51,7 +56,30 @@ struct ContentView: View, DropDelegate {
             if url_string == "" {
                 Text("No image loaded").fixedSize().padding(50)
             } else {
-                Image(nsImage: NSImage(contentsOf: URL(string:url_string)!)!).resizable().aspectRatio(contentMode: .fit)
+              Image(nsImage: NSImage(contentsOf: URL(string:url_string)!)!).resizable().frame(width: imgW, height: imgH)
+                .scaleEffect(finalAmount + currentAmount)
+                .offset(x: offsetX, y: offsetY)
+                .gesture(
+                DragGesture()
+                  .onChanged { value in
+                      offsetY = value.translation.height + offsetYBuffer
+                      offsetX =  value.translation.width + offsetXBuffer
+                  }
+                  .onEnded { value in
+                      offsetXBuffer = value.translation.width + offsetXBuffer
+                      offsetYBuffer = value.translation.height + offsetYBuffer
+                  }
+              ).gesture(
+                MagnificationGesture()
+                    .onChanged { value in
+                         currentAmount = value - 1
+                     }
+                     .onEnded { value in
+                         finalAmount += currentAmount
+                         currentAmount = 0
+                         offsetY += 0.1 //this seems to fix it
+                     }
+            )
             }
         
             if self.showInfoBar == true && url_string != "" {

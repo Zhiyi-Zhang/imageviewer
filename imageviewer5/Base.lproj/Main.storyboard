@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -74,6 +75,12 @@
                                             <connections>
                                                 <action selector="prevFileWith_sender:" target="Voe-Tx-rLC" id="Gkl-WC-8it"/>
                                             </connections>
+                                        </menuItem>
+                                        <menuItem title="Zoom In" enabled="NO" keyEquivalent="]" id="AVF-Du-6J3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Zoom Out" enabled="NO" keyEquivalent="[" id="TKF-bu-Rif">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4Oe-2a-Z34"/>
                                         <menuItem title="Copy Image" enabled="NO" keyEquivalent="c" id="czs-eo-B9n">
