@@ -76,16 +76,28 @@
                                                 <action selector="prevFileWith_sender:" target="Voe-Tx-rLC" id="Gkl-WC-8it"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Another Next" enabled="NO" keyEquivalent="" id="O8C-Fc-wNJ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="nextFileWith_sender:" target="Voe-Tx-rLC" id="9ix-Zt-ed3"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Another Previous" enabled="NO" keyEquivalent="" id="NNd-uk-ORb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="prevFileWith_sender:" target="Voe-Tx-rLC" id="rus-OR-oxD"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Zoom In" enabled="NO" keyEquivalent="]" id="AVF-Du-6J3">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="zoomIn:" target="Ady-hI-5gd" id="FKP-Ut-BeR"/>
+                                                <action selector="zoomInPicWith_sender:" target="Voe-Tx-rLC" id="isw-PA-RXD"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Zoom Out" enabled="NO" keyEquivalent="[" id="TKF-bu-Rif">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="zoomOut:" target="Ady-hI-5gd" id="xxM-ZD-8KW"/>
+                                                <action selector="zoomOutPicWith_sender:" target="Voe-Tx-rLC" id="BxJ-Up-XQz"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4Oe-2a-Z34"/>

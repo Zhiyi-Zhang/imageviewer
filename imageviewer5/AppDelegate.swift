@@ -15,6 +15,10 @@ var files_in_folder = [String]() // This array will hold images we can display
 var currentImageIndex = 0 // Which image in the array we are showing
 var totalFilesInFolder = 0 // How many images in the folder that we can show
 
+var finalScaleAmount  = CGFloat(1) // the scale factor
+var offsetX = CGFloat(0)
+var offsetY = CGFloat(0)
+
 // Infobar vars
 var InfoBar_Name = "(Filename goes here)"
 var InfoBar_Format = "(Resolution etc goes here)"
@@ -143,14 +147,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
   @IBAction func zoomInPic(_sender: NSMenuItem) {
     send_NC(text: "Zoom in")
-    current_image_width += 100
-    current_image_height += 100
+    finalScaleAmount += CGFloat(0.2)
   }
   
   @IBAction func zoomOutPic(_sender: NSMenuItem) {
     send_NC(text: "Zoom out")
-    current_image_width -= 100
-    current_image_height -= 100
+    finalScaleAmount -= CGFloat(0.2)
+    if (finalScaleAmount < CGFloat(0.1)) {
+      finalScaleAmount = CGFloat(0.1)
+    }
   }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -260,6 +265,8 @@ func set_new_url(in_url: String) { // This is the main thing. It gets called whe
     // Enable menu items since we now should have a image loaded
     subMenu?.item(withTitle: "Next")?.isEnabled = true
     subMenu?.item(withTitle: "Previous")?.isEnabled = true
+    subMenu?.item(withTitle: "Another Next")?.isEnabled = true
+    subMenu?.item(withTitle: "Another Previous")?.isEnabled = true
     subMenu?.item(withTitle: "Zoom In")?.isEnabled = true
     subMenu?.item(withTitle: "Zoom Out")?.isEnabled = true
     subMenu?.item(withTitle: "Copy Image")?.isEnabled = true
@@ -362,6 +369,18 @@ func check_image_folder(file_url_string: String) {
     
 }
 
+func getFinalScaleAmount() -> CGFloat {
+  return finalScaleAmount
+}
+
+func getOffSetX() -> CGFloat {
+  return offsetX
+}
+
+func getOffSetY() -> CGFloat {
+  return offsetY
+}
+
 func NextPic(inc: Int) {
     //print("Current picture is", files_in_folder[curr!])
     var next = currentImageIndex + inc
@@ -377,6 +396,11 @@ func NextPic(inc: Int) {
     let next_url = files_in_folder[next]
     set_new_url(in_url: next_url)
     send_NC(text: "Next pic")
+  
+    // reset the scale factors and offset
+    finalScaleAmount  = CGFloat(1) // the scale factor
+    offsetX = CGFloat(0)
+    offsetY = CGFloat(0)
 }
 
 func send_NC(text: String) {
@@ -396,10 +420,18 @@ func reset_everything() {
 
     currentImageIndex = 0 // Which image in the array we are showing
     totalFilesInFolder = 0 // How many images in the folder that we can show
+  
+    finalScaleAmount  = CGFloat(1) // the scale factor
+    offsetX = CGFloat(0)
+    offsetY = CGFloat(0)
     
     // Disable menu items again
     subMenu?.item(withTitle: "Next")?.isEnabled = false
     subMenu?.item(withTitle: "Previous")?.isEnabled = false
+  subMenu?.item(withTitle: "Another Next")?.isEnabled = false
+  subMenu?.item(withTitle: "Another Previous")?.isEnabled = false
+    subMenu?.item(withTitle: "Zoom In")?.isEnabled = false
+    subMenu?.item(withTitle: "Zoom Out")?.isEnabled = false
     subMenu?.item(withTitle: "Copy Image")?.isEnabled = false
     subMenu?.item(withTitle: "Copy Path to Image")?.isEnabled = false
     subMenu?.item(withTitle: "Delete")?.isEnabled = false

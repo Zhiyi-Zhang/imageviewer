@@ -41,12 +41,12 @@ struct ContentView: View, DropDelegate {
     @State var InfoBar_Text_FileSize = InfoBar_FileSize
     @State var InfoBar_Text_Misc = InfoBar_Misc
     //@State var bgcolor = Color(.systemBlue)
-  @State var finalAmount  = CGFloat(1)
-  @State var currentAmount  = CGFloat(0)
-  @State var offsetX = CGFloat(0)
-  @State var offsetY = CGFloat(0)
-  @State var offsetXBuffer = CGFloat(10)
-  @State var offsetYBuffer = CGFloat(10)
+    @State var finalScaleAmount = getFinalScaleAmount()
+    @State var currentScaleAmount = CGFloat(0)
+    @State var offsetX = getOffSetX()
+    @State var offsetY = getOffSetY()
+    @State var offsetXBuffer = CGFloat(0)
+    @State var offsetYBuffer = CGFloat(0)
     
     
     let pub = NotificationCenter.default.publisher(for: NSNotification.Name(NCName))
@@ -56,14 +56,14 @@ struct ContentView: View, DropDelegate {
             if url_string == "" {
                 Text("No image loaded").fixedSize().padding(50)
             } else {
-              Image(nsImage: NSImage(contentsOf: URL(string:url_string)!)!).resizable().frame(width: imgW, height: imgH)
-                .scaleEffect(finalAmount + currentAmount)
+              Image(nsImage: NSImage(contentsOf: URL(string:url_string)!)!).resizable()
+                .scaleEffect(finalScaleAmount + currentScaleAmount)
                 .offset(x: offsetX, y: offsetY)
                 .gesture(
                 DragGesture()
                   .onChanged { value in
-                      offsetY = value.translation.height + offsetYBuffer
-                      offsetX =  value.translation.width + offsetXBuffer
+                    offsetX = value.translation.width + offsetXBuffer;
+                    offsetY = value.translation.height + offsetYBuffer;
                   }
                   .onEnded { value in
                       offsetXBuffer = value.translation.width + offsetXBuffer
@@ -72,16 +72,14 @@ struct ContentView: View, DropDelegate {
               ).gesture(
                 MagnificationGesture()
                     .onChanged { value in
-                         currentAmount = value - 1
+                      currentScaleAmount = value - 1
                      }
                      .onEnded { value in
-                         finalAmount += currentAmount
-                         currentAmount = 0
-                         offsetY += 0.1 //this seems to fix it
+                       finalScaleAmount = finalScaleAmount + currentScaleAmount
+                       currentScaleAmount = 0
+                       offsetY += 0.1 //this seems to fix it
                      }
               )
-              
-              
             }
         
             if self.showInfoBar == true && url_string != "" {
@@ -106,9 +104,10 @@ struct ContentView: View, DropDelegate {
                 self.InfoBar_Text_Format = InfoBar_Format
                 self.InfoBar_Text_FileSize = InfoBar_FileSize
                 self.InfoBar_Text_Misc = InfoBar_Misc
+                self.finalScaleAmount  = getFinalScaleAmount()
+                self.offsetX = getOffSetX()
+                self.offsetY = getOffSetY()
         }
-        
-        
         .frame(minWidth: 400, idealWidth: imgW, maxWidth: NSScreen.main?.frame.width, minHeight: 300, idealHeight: imgH, maxHeight: NSScreen.main?.frame.height)
         //.background(Rectangle().fill(bgcolor))
         .onDrop(of: [(kUTTypeFileURL as String)], delegate: self)
