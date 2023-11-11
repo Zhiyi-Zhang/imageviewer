@@ -223,6 +223,7 @@ func set_new_url(in_url: String) { // This is the main thing. It gets called whe
     
     // Set all variables etc
     current_url = in_url
+  
     check_image_folder(file_url_string: in_url)
     currentImageIndex = files_in_folder.firstIndex(of: current_url)!
     totalFilesInFolder = files_in_folder.count
